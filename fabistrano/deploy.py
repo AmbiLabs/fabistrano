@@ -110,9 +110,20 @@ def rollback():
     rollback_code()
     restart()
 
+@with_defaults
+def after_update():
+    print("Do sth after update")
+
+@with_defaults
+def after_restart():
+    print("Do sth after restart")
+
 @task(default=True)
 def deploy():
     """Deploys your project. This calls both `update' and `restart'"""
     update()
+    after_update()
+
     restart()
+    after_restart()
 
